@@ -9,25 +9,34 @@ import testProducts from "../data/testProducts.json";
 
 function ShoppingPage() {
 
-  const [ allProducts, setAllProducts ] = useState(testProducts) 
+  const [ allProducts, setAllProducts ] = useState(testProducts) // all products
+
+  const [ filteredProducts, setFilteredProducts ] = useState(testProducts) // products displayed
+
   //* initial state. change to empty array when finished with add functionality
+
+  //Solution 1
+  // const getNewProduct = (product) => {
+  //   console.log(product)
+  //   const clone = structuredClone(allProducts)
+  //   clone.push(product)
+  //   setAllProducts(clone)
+  // }
 
   return (
     <>
 
       <h1>Shopping List!</h1>
+      {/* Solution 1 */}
+      {/* <AddForm getNewProduct={getNewProduct}/> */}
+
+      {/* Solution 2 */}
+      <AddForm allProducts={allProducts} setAllProducts={setAllProducts}/>
+
+      <SearchBar allProducts={allProducts} setFilteredProducts={setFilteredProducts}/>
 
       {/* //* all elements of the shopping list will be here */}
-      {allProducts.map((eachProduct, index) => {
-        return (
-          <div className="product-card" key={index}>
-            <h3>{eachProduct.name}</h3>
-            <p>{eachProduct.price}€</p>
-            <p>{eachProduct.isPurchased === true ? "✅" : "🟡"}</p>
-            <button>Buy</button>
-          </div>
-        )
-      })}
+      <ProductList allProducts={filteredProducts}/>
 
     </>
   )
